@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"  // Use "mysql" or "sqlite" if needed
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int   @id @default(autoincrement())
+  name          String
+  email         String   @unique
+  password      String
+  role          Role     @default(USER)
+  energyUsage   EnergyUsage[]
+  subscriptions Subscription[]
+  createdAt     DateTime @default(now())
+
+  ChatMessage ChatMessage[]
+}
+
+model EnergyUsage {
+  id          Int   @id @unique @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  stationId   Int
+  station     EVChargingStation @relation(fields: [stationId], references: [id])
+  energyUsed  Float
+  timestamp   DateTime @default(now())
+}
+
+model EVChargingStation {
+  id            Int   @id @unique @default(autoincrement())
+  name          String
+  location      String
+  latitude      Float
+  longitude     Float
+  powerCapacity Float
+  availability  Boolean  @default(true)
+  energyUsages  EnergyUsage[]
+  createdAt     DateTime @default(now())
+}
+
+model Subscription {
+  id           String   @id @unique @default(cuid())
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+  plan         SubscriptionPlan
+  status       SubscriptionStatus @default(ACTIVE)
+  createdAt    DateTime @default(now())
+  expiresAt    DateTime
+}
+
+model ChatMessage {
+  id        Int   @id @unique @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  message   Json
+  response  Json
+  timestamp DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum SubscriptionPlan {
+  BASIC
+  PREMIUM
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+}
