@@ -4,7 +4,6 @@ import { Search, Filter, Star, Navigation2 } from 'lucide-react-native';
 import { BACKEND_URL } from '@/config';
 import axios from 'axios';
 
-// Define the TypeScript interface for EV Charging Station
 interface EVChargingStation {
   id: string | number;
   name: string;
@@ -33,12 +32,10 @@ export default function StationsScreen() {
       });
       console.log("API Response:", response.data); 
       if (response.data && response.data.evStation) {
-        // Check if evStation is an array or a single object
         const stationsData = Array.isArray(response.data.evStation) 
           ? response.data.evStation 
           : [response.data.evStation];
           
-        // Cast the data to our EVChargingStation type
         setStations(stationsData as EVChargingStation[]);
       } else {
         console.error("Unexpected API response:", response.data);
