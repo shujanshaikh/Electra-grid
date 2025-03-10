@@ -4,10 +4,8 @@ import prisma from "../db";
 import { JWT_SECRET } from "../config";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import express from "express";
 
 export const authRouter = Router(); 
-//authRouter.use(express.json())
 
 authRouter.post("/signup" ,async (req , res) => {
    
@@ -29,7 +27,7 @@ authRouter.post("/signup" ,async (req , res) => {
     })
     console.log(user.id);
     res.json({
-      user
+      user : user.id
      })
    } catch (error) {
     res.status(500).json({

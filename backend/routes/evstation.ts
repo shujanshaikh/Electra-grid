@@ -5,6 +5,7 @@ import { EVChargingStationSchema } from "../types/types";
 export const evStation = Router();
 
 
+
 evStation.get("/stations", async (req, res) => {
     try {
         const evStation = await prisma.eVChargingStation.findMany({

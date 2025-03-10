@@ -1,10 +1,9 @@
 import { Router } from "express";
 import prisma from "../db";
 import { energySchema } from "../types/types";
-import express from "express";
 
 export const energyRouter = Router();
-energyRouter.use(express.json())
+
 
 
 
@@ -27,7 +26,7 @@ energyRouter.get("/energy", async (req, res) => {
 });
 
 energyRouter.post("/energy", async (req, res) => {  
-    console.log("user reached here from energy")
+    //console.log("user reached here from energy")
     const parsedData = energySchema.safeParse(req.body);
     if(!parsedData.success) {
         res.status(400).json({
@@ -41,14 +40,13 @@ energyRouter.post("/energy", async (req, res) => {
     try {
         const energy = await prisma.energyUsage.create({
             data : {
-                userId : parsedData.data.userId,
-                stationId : parsedData.data.stationId,
-                energyUsed : parsedData.data.energyUsed,
-            } , 
-            include : {
-                user : true,
-            }
+               stationId : parsedData.data.stationId,   
+               energyUsed : parsedData.data.energyUsed, 
+               userId : parsedData.data.userId
+            } 
         })
+        console.log(energy);
+        console.log("Reaches here")
         res.json({
             energy
         })

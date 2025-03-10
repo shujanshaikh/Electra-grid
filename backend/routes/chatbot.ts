@@ -1,11 +1,12 @@
 import { Router } from "express";
 import OpenAI from "openai";
-import express from "express";
 import { systemPrompt } from "../prompts/systemprompt";
 
 export const chatBot = Router();
 
-chatBot.use(express.json())
+
+
+
 
 chatBot.post("/chat", async (req, res) => {
     const { prompt } = req.body;
@@ -21,7 +22,7 @@ chatBot.post("/chat", async (req, res) => {
             { role: "user", content: prompt },
         ],
     });
-    //console.log(response.choices[0].message.content);
+    console.log(response.choices[0].message.content);
     res.json({
         response: response.choices[0].message.content
     });

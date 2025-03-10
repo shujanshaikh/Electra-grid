@@ -18,11 +18,13 @@
     "typescript": "^5"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --config=jest.config.cjs"
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",
+    "axios": "^1.8.2",
     "bcrypt": "^5.1.1",
+    "jest-serializer": "^27.5.1",
     "jsonwebtoken": "^9.0.2"
   }
 }

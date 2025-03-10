@@ -27,12 +27,12 @@ model User {
 }
 
 model EnergyUsage {
-  id          Int   @id @unique @default(autoincrement())
+  id          Int   @id @default(autoincrement())
   userId      Int
-  user        User     @relation(fields: [userId], references: [id])
+  user        User    @relation(fields: [userId], references: [id])
   stationId   Int
   station     EVChargingStation @relation(fields: [stationId], references: [id])
-  energyUsed  Float
+  energyUsed  Int
   timestamp   DateTime @default(now())
 }
 
