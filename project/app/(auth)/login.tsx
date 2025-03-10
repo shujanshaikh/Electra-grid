@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { View, TextInput, Button, Text, StyleSheet, Alert } from "react-native";
 import axios from "axios";
 import { BACKEND_URL } from "@/config";
+import { useRouter } from "expo-router";
 
 const SignupScreen: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSignup = async () => {
     if (!email || !password || !name) {
@@ -19,12 +21,14 @@ const SignupScreen: React.FC = () => {
     try {
       const response = await axios.post(`${BACKEND_URL}/signup`, { email, password, name });
       Alert.alert("Success", "Account created successfully");
+      console.log("Acccount created", response.data);
     } catch (error) {
       Alert.alert("Error", "Signup failed");
       console.error("Signup error:", error);
     } finally {
       setLoading(false);
     }
+    router.push("/chat");
   };
 
   return (

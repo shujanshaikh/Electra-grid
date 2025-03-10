@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import { View, TextInput, Button, Text, StyleSheet, Alert } from "react-native";
 import axios from "axios";
 import { BACKEND_URL } from "@/config";
+import { useRouter } from "expo-router";
 
 const SigninScreen: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter()
+   
   const handleSignin = async () => {
     if (!email || !password) {
       Alert.alert("Error", "Email and password are required");
       return;
     }
+    
     
     setLoading(true);
     try {
@@ -25,6 +28,7 @@ const SigninScreen: React.FC = () => {
     } finally {
       setLoading(false);
     }
+    router.push("/login");
   };
 
   return (

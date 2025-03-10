@@ -24,6 +24,7 @@ evStation.get("/stations", async (req, res) => {
 });
 
 evStation.post("/stations", async (req, res) => {
+    console.log(req.body)
     const parsedData = EVChargingStationSchema.safeParse(req.body);
     if(!parsedData.success) {
         res.status(400).json({

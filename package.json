@@ -2,5 +2,19 @@
   "dependencies": {
     "@types/express": "^5.0.0",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "cypress": "^14.1.0",
+    "uuid": "^9.0.1",
+    "wait-on": "^8.0.2"
+  },
+  "scripts": {
+    "test": "cd tests && npm test",
+    "test:integration": "cd tests && RUN_INTEGRATION_TESTS=true npm test -- --testPathPattern=integration",
+    "test:e2e": "cypress run",
+    "cypress:open": "cypress open",
+    "start:test": "concurrently \"npm run start:backend\" \"npm run start:frontend\" \"wait-on http://localhost:3000 && npm run cypress:open\""
   }
 }
+

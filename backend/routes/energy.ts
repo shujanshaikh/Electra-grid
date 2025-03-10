@@ -26,7 +26,7 @@ energyRouter.get("/energy", async (req, res) => {
 });
 
 energyRouter.post("/energy", async (req, res) => {  
-    //console.log("user reached here from energy")
+    console.log(req.body)
     const parsedData = energySchema.safeParse(req.body);
     if(!parsedData.success) {
         res.status(400).json({
@@ -35,8 +35,31 @@ energyRouter.post("/energy", async (req, res) => {
         console.log(parsedData.error.errors);
         return
     }
-  
-    console.log("user reached here")
+   
+     const station = await prisma.eVChargingStation.findUnique({
+        where : {
+            id : parsedData.data.stationId
+        }
+     })
+     if(!station) {
+        res.status(404).json({
+            message : "Station not found"
+        })
+        return
+    }
+     
+    const  user = await prisma.user.findUnique({
+        where : {
+            id : parsedData.data.userId
+        }
+    })
+    if(!user) {
+        res.status(404).json({
+            message : "User not found"
+        })
+        return
+    }
+
     try {
         const energy = await prisma.energyUsage.create({
             data : {
@@ -51,6 +74,7 @@ energyRouter.post("/energy", async (req, res) => {
             energy
         })
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             message : "Internal server error"
         })

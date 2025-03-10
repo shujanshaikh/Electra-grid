@@ -8,7 +8,7 @@ export const signUpSchema = z.object({
 
 export const signInSchema = z.object({
     email: z.string().email(),
-    password: z.string().min(6)
+    password: z.string()
 })
 
 export const logoutSchema = z.object({
@@ -22,11 +22,10 @@ export const energySchema = z.object({
 })
 
 export const EVChargingStationSchema = z.object({
-    name: z.string().min(3).max(255),
-    location: z.string().min(3).max(255),
+    name: z.string(),
+    location: z.string(),
     latitude: z.number(),
     longitude: z.number(),
     powerCapacity: z.number(),
     availability: z.boolean(),
-    energyUsage: z.number(),
 })
