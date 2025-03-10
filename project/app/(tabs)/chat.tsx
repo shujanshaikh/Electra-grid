@@ -3,6 +3,8 @@ import { View, TextInput, Button, Text, ScrollView, StyleSheet } from "react-nat
 import axios from "axios";
 import { BACKEND_URL } from "@/config";
 
+
+
 const ChatScreen: React.FC = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);

@@ -40,7 +40,8 @@ evStation.post("/stations", async (req, res) => {
                 latitude : parsedData.data.latitude!,
                 longitude : parsedData.data.longitude!,
                 powerCapacity : parsedData.data.powerCapacity!,
-                availability : parsedData.data.availability!
+                availability : parsedData.data.availability!,
+                imageUrl : parsedData.data.imageUrl
             }
         })
         res.json({

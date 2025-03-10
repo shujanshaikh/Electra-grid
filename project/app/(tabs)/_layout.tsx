@@ -44,13 +44,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => <MessageSquare size={size} color={color} />,
         }}
       />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: 'Settings',
-          tabBarIcon: ({ color, size }) => <Settings size={size} color={color} />,
-        }}
-      />
     </Tabs>
   );
 }

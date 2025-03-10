@@ -28,4 +28,5 @@ export const EVChargingStationSchema = z.object({
     longitude: z.number(),
     powerCapacity: z.number(),
     availability: z.boolean(),
+    imageUrl: z.string()
 })

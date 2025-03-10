@@ -46,6 +46,7 @@ model EVChargingStation {
   availability  Boolean  @default(true)
   energyUsages  EnergyUsage[]
   createdAt     DateTime @default(now())
+  imageUrl      String?   @default("")
 }
 
 model Subscription {
